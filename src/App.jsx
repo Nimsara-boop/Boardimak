@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Header from './components/header'
-import BoardingHunters from './components/boardinghunters'
+import HuntersNSidebar from './components/huntersnsidebar'
 import HostsNSidebar from './components/hostsnsidebar'
 import BrokerAgents from './components/brokeragents'
 import Contact from './components/contact'
@@ -25,7 +25,7 @@ function App() {
       
       <Routes>
         <Route path='/' element={<Header />} />
-        <Route path='/boardinghunters' element={<BoardingHunters />} />
+        <Route path='/boardinghunters' element={<HuntersNSidebar />} />
         <Route path='/boardinghosts' element={<HostsNSidebar />} />
         <Route path='/brokeragents' element={<BrokerAgents />} />
         <Route path='/contact' element={<Contact />} />
