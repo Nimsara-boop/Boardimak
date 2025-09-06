@@ -21,12 +21,12 @@ const Navbar = () => {
   }, [showMobileMenu])
 
   return (
-    <div className='absolute top-0 left-0 w-full z-10'>
-      <div className='container mx-auto flex justify-between 
-                      item-center sm:px-5 lg:px-32 
-                       sm:gap-5 bg-red-800'>
+    <div className='top-0 left-0 w-full z-10 '>
+      <div className='container flex justify-between 
+                      item-center sm:px-5 lg:px-3 
+                       sm:gap-40 bg-red-800'>
         <Link to="/" className='flex flex-col items-center'>
-        <img src={logo} alt="logo" className='flex items-center sm:w-full'/>
+        <img src={logo} alt="logo" className='flex items-center sm:w-full md:w-1/2 py-1'/>
         </Link>
         <ul className='hidden md:flex items-center lg:gap-30 sm:gap-10
                       text-white text-lg font-semibold'> 
