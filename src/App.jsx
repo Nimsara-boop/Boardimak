@@ -5,7 +5,7 @@ import './App.css'
 import Header from './components/header'
 import HuntersNSidebar from './components/huntersnsidebar'
 import HostsNSidebar from './components/hostsnsidebar'
-import BrokerAgents from './components/brokeragents'
+import BrokersNSidebar from './components/brokersnsidebar'
 import Contact from './components/contact'
 import TipsAndFAQ from './components/tipsandfaq'
 import Notfoundpage from './components/notfoundpage'
@@ -27,7 +27,7 @@ function App() {
         <Route path='/' element={<Header />} />
         <Route path='/boardinghunters' element={<HuntersNSidebar />} />
         <Route path='/boardinghosts' element={<HostsNSidebar />} />
-        <Route path='/brokeragents' element={<BrokerAgents />} />
+        <Route path='/brokeragents' element={<BrokersNSidebar />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/tips-and-faq' element={<TipsAndFAQ />} />
         <Route path='*' element={<Notfoundpage />} />
