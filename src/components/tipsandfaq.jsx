@@ -1,9 +1,9 @@
 import React from 'react'
 
-const tipsandfaq = () => {
+const TipsAndFAQ = () => {
   return (
     <div className='text-black'>tipsandfaq</div>
   )
 }
 
-export default tipsandfaq
+export default TipsAndFAQ
