@@ -24,7 +24,7 @@ const BoardingPlaces = () => {
     </div>
             {showPopup && (
         <div className="fixed inset-0 bg-black/80 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded shadow-lg w-96 relative">
+          <div className="bg-gray-300 p-6 rounded shadow-lg w-96 relative">
             <button
               className="absolute top-2 right-2 text-gray-500"
               onClick={() => setShowPopup(false)}
