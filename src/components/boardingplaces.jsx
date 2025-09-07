@@ -5,8 +5,12 @@ import { Link } from 'react-router-dom'
 const BoardingPlaces = () => {
   return (
         <div className="p-4">
-      <h1 className="text-2xl font-bold">Boarding Places</h1>
-      <p>Main content goes here...</p>
+          
+    <div>
+      <button className="text-lg font-bold text-white bg-green-600">Google Maps</button>
+      <p className='text-gray-400'>View all boarding listings on Google Maps</p>
+    </div>
+    
     </div>
   )
 }
