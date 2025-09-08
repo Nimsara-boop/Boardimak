@@ -6,8 +6,6 @@ const BoardingPlaces = () => {
 
   const [showPopup, setShowPopup] = useState(false);
 
-
-
   return (
         <div className="p-4">
 
@@ -18,13 +16,13 @@ const BoardingPlaces = () => {
     </div>
     <div className='items-right py-6'>
       <button className="text-lg font-bold text-white bg-yellow-500" onClick={() => setShowPopup(true)}>
-        <p>Post Boarding</p> <p className='text-red-600 text-sm'>For Free</p></button>
+        <p>Post Boarding</p> <p className='bg-red-600 rounded-full  text-sm'>Free</p></button>
       <p className='text-gray-400'>Post Your Boarding For Free!</p>
     </div>
     </div>
             {showPopup && (
         <div className="fixed inset-0 bg-black/80 flex justify-center items-center z-50">
-          <div className="bg-gray-300 p-6 rounded shadow-lg w-96 relative">
+          <div className="bg-gray-100 flex p-3 rounded shadow-lg w-3/4 relative">
             <button
               className="absolute top-2 right-2 text-gray-500"
               onClick={() => setShowPopup(false)}
