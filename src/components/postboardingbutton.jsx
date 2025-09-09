@@ -39,7 +39,7 @@ const Postboardingbutton = () => {
                 ✖
                 </button>
 
-            >
+            
         </div>
         )}
 
