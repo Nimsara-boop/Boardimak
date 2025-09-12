@@ -25,8 +25,9 @@ const BoardingPlaces = () => {
 
       <div className='flex flex-row justify-between '>
         <div className='items-left py-10'>
+          <Link to='/boardingplacesongooglemaps'>
           <button className="text-lg font-bold text-white bg-green-600">Google Maps</button>
-          <p className='text-gray-400'>View all boarding listings on Google Maps</p>
+          <p className='text-gray-400'>View all boarding listings on Google Maps</p> </Link>
         </div>
         <div className='items-right py-6'>
           <button className="text-lg font-bold text-white bg-yellow-500" onClick={() => setShowPopup(true)}>
@@ -48,7 +49,7 @@ const BoardingPlaces = () => {
         </div>
       )}
 
-      <main className='flex-1 p-4 overflow-hidden'>
+      <main className='flex-1 p-4'>
         <ul>{listings.map((listing) => (
           <li key={listing.id} className="p-2 text-gray-500 border-b border-gray-300 flex flex-row">
             <img src={listing.images} alt={listing.title} className="w-30 h-30 object-cover mb-2 rounded overflow-hidden" />
@@ -63,6 +64,7 @@ const BoardingPlaces = () => {
 
 
 
+        <h2 className='text-gray-900'>BOARDING</h2>
 
       </main>
 
