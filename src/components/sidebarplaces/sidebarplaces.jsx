@@ -8,7 +8,13 @@ const Sidebar = () => {
         <li>Link 1</li>
         <li>Link 2</li>
       </ul>
+      <div>
+        <button className='mt-20 bg-red-500 text-white px-4 py-2 rounded'>
+          Set Filters
+        </button>
+      </div>
     </div>
+
   )
 }
 
