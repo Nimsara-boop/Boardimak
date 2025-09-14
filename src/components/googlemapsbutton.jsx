@@ -94,7 +94,7 @@ export default function BoardimakMap() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Open in Google Maps
+                Open Google Maps
               </a>
             </div>
           </InfoWindow>
