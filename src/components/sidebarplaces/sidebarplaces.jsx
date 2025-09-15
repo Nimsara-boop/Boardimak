@@ -1,13 +1,91 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const Sidebar = () => {
+const Sidebar = ({ setPlaces }) => {
+  const [city, setCity] = useState('');
+  const [areas, setAreas] = useState('');
+  const [boardingtype, setBoardingType] = useState('');
+  const [gender, setGender] = useState('');
+  const [maxRent, setMaxRent] = useState('');
+
+  const cityAreas = {
+    Colombo: ["Bambalapitiya", "Dehiwala", "Piliyandala"],
+    Kandy: ["Peradeniya", "Katugastota", "Gampola"],
+  };
+
+  const handleAreaChange = (e) =>{
+    const value = e.target.value;
+    if (areas.includes(value)){
+      setAreas(areas.filter((a) => a !== value));
+    }else {
+      setAreas([...areas, value]);
+    }
+  };
+
+  const handleBoardingTypeChange = (e) =>{
+    const value = e.target.value;
+    if (boardingtype.includes(value)){
+      setBoardingType(type.filter((a) => a !==value));
+    }else{
+      setBoardingType([...type, value]);
+    }
+  };
+
+  const handleFilter = async () => {
+    const params = new URLSearchParams();
+    if (city) params.append('city', city);
+    if (boardingtype.length > 0){
+      boardingtype.forEach(t => params.append('type', t));
+    }
+    if (gender) params.append('tenant_gender', gender);
+    if (rentMax) params.append('rent_max', rentMax);
+    if (areas.length > 0){
+      areas.forEach(a => params.append('area', a));
+    }
+
+    const res = await fetch(`http://localhost:5000/places?${params.toString()}`);
+    const data = await res.json();
+    setPlaces(data);
+  };
+
   return (
     <div className="mt-10 h-screen bg-gray-100 text-black p-4 border-b border-black md:border-b-0 md:border-r md:border-gray-300">
-      <h2 className="text-xl font-bold">Sidebar Places</h2>
-      <ul>
-        <li>Link 1</li>
-        <li>Link 2</li>
-      </ul>
+      <h2 className="text-xl font-bold text-gray-500 lg:align-left">Filters</h2>
+
+      <div className="p-5 text-gray-500 gap-5 text-sm">
+      <label className='text-left block p-2'>Location</label>
+      <select value={city} onChange={(e) => { setCity(e.target.value); setAreas([]); }}
+  className="py-1 mb-4 border rounded w-full"
+      >
+        
+        <option value="">All Sri Lanka</option>
+        <option value="Colombo">Colombo</option>
+        <option value="Kandy">Kandy</option>
+      </select>
+
+            {city && (
+        <div className="mt-2">
+          <p className="">Select Area</p>
+          {cityAreas[city].map((area) => (
+            <label key={area} className="block text-left">
+              <input type="checkbox" value={area} checked={areas.includes(area)}
+                onChange={handleAreaChange} 
+                className="appearance-none h-5 w-5 border border-gray-500 rounded-sm checked:bg-transparent checked:border-gray-500 checked:before:content-['✔'] checked:before:block checked:before:text-gray-800 checked:before:text-sm checked:before:leading-4 checked:before:text-center"
+              />
+              {area}
+            </label>
+          ))}
+        </div>
+      )}
+    <label className='text-left block py-2'>Boarding Type</label>
+      <select value={boardingtype} onChange={(e) => {setBoardingType(e.target.value); setBoardingType([]); }}
+        className = 'border p-1 rounded w-full'>
+        <option value="">All</option>
+        <option value="Room">Room</option>
+        <option value="House">House</option>
+        <option value="Annex">Annex</option>
+        <option value="Portion">Portion</option>
+      </select>
+      </div>
       <div>
         <button className='mt-20 bg-red-500 text-white px-4 py-2 rounded'>
           Set Filters
