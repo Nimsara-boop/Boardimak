@@ -6,10 +6,11 @@ const Sidebar = ({ setPlaces }) => {
   const [boardingtype, setBoardingType] = useState('');
   const [gender, setGender] = useState('');
   const [maxRent, setMaxRent] = useState('');
+  const [employment, setEmployment] = useState('');
 
   const cityAreas = {
     Colombo: ["Bambalapitiya", "Dehiwala", "Piliyandala"],
-    Kandy: ["Peradeniya", "Katugastota", "Gampola"],
+    Kandy: ["Peradeniya", "Katugastota", "Gampola", "Minipe", "Pujapitiya", "Ganga Ihala Korale", "Akurana"],
   };
 
   const handleAreaChange = (e) =>{
@@ -63,10 +64,10 @@ const Sidebar = ({ setPlaces }) => {
       </select>
 
             {city && (
-        <div className="mt-2">
-          <p className="">Select Area</p>
+        <div className="mt-2 mb-2 ">
+          <p className="">Select Area/s</p>
           {cityAreas[city].map((area) => (
-            <label key={area} className="block text-left">
+            <label key={area} className="block text-left py-1">
               <input type="checkbox" value={area} checked={areas.includes(area)}
                 onChange={handleAreaChange} 
                 className="appearance-none h-5 w-5 border border-gray-500 rounded-sm checked:bg-transparent checked:border-gray-500 checked:before:content-['✔'] checked:before:block checked:before:text-gray-800 checked:before:text-sm checked:before:leading-4 checked:before:text-center"
@@ -78,13 +79,37 @@ const Sidebar = ({ setPlaces }) => {
       )}
     <label className='text-left block py-2'>Boarding Type</label>
       <select value={boardingtype} onChange={(e) => {setBoardingType(e.target.value); setBoardingType([]); }}
-        className = 'border p-1 rounded w-full'>
+        className = 'border p-1 rounded w-full mb-4'>
         <option value="">All</option>
         <option value="Room">Room</option>
         <option value="House">House</option>
         <option value="Annex">Annex</option>
         <option value="Portion">Portion</option>
+        <option value="HomeStays">Home stays</option>
+        <option value='Apartment'>Apartment</option>
       </select>
+
+      <div className="flex flex-row gap-2 justify between">
+        <div className="">
+          <label>Gender</label>
+      <select value={gender} onChange={(e) => {setGender(e.target.value); setGender(''); }}
+        className = 'border p-1 rounded w-full mb-4'>
+        <option value="Female">Female</option>
+        <option value="Male">Male</option>
+        <option value="Couple">Couple</option>
+      </select>
+        </div>
+        <div className="">
+      <label>Employment</label>
+      <select value={employment} onChange={(e) => {setEmployment(e.target.value); setEmployment(''); }}
+        className = 'border p-1 rounded w-full mb-4'>
+        <option value="Student">Student</option>
+        <option value="Part-time">Part-time</option>
+        <option value="Employed">Employed</option>
+      </select>
+        </div>
+
+      </div>
       </div>
       <div>
         <button className='mt-20 bg-red-500 text-white px-4 py-2 rounded'>
