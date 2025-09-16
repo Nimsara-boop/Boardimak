@@ -108,8 +108,15 @@ const Sidebar = ({ setPlaces }) => {
         <option value="Employed">Employed</option>
       </select>
         </div>
-
       </div>
+        <label>Persons Per Room</label>
+      <select value={employment} onChange={(e) => {setEmployment(e.target.value); setEmployment(''); }}
+        className = 'border p-1 rounded w-full mb-4'>
+        <option value="Student">Student</option>
+        <option value="Part-time">Part-time</option>
+        <option value="Employed">Employed</option>
+      </select>
+
       </div>
       <div>
         <button className='mt-20 bg-red-500 text-white px-4 py-2 rounded'>
