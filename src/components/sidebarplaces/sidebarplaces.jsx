@@ -52,7 +52,7 @@ const Sidebar = ({ setPlaces }) => {
     <div className="mt-10 h-screen bg-gray-100 text-black p-4 border-b border-black md:border-b-0 md:border-r md:border-gray-300">
       <h2 className="text-xl font-bold text-gray-500 lg:align-left">Filters</h2>
 
-      <div className="p-5 text-gray-500 gap-5 text-sm">
+      <div className="p-5 text-gray-600 gap-5 text-sm">
       <label className='text-left block p-2'>Location</label>
       <select value={city} onChange={(e) => { setCity(e.target.value); setAreas([]); }}
   className="py-1 mb-4 border rounded w-full"
@@ -112,11 +112,44 @@ const Sidebar = ({ setPlaces }) => {
         <label>Persons Per Room</label>
       <select value={employment} onChange={(e) => {setEmployment(e.target.value); setEmployment(''); }}
         className = 'border p-1 rounded w-full mb-4'>
-        <option value="Student">Student</option>
-        <option value="Part-time">Part-time</option>
-        <option value="Employed">Employed</option>
+        <option value="Single Room">Single Room</option>
+        <option value="2 shared">2 shared</option>
+        <option value="3 shared">3 shared</option>
+        <option value="4 shared">4 shared</option>
+        <option value="4+ shared">4+ shared</option>
+        <option value="Any">Any</option>
       </select>
+      <label>Max Rent <p className='text-xs'>*Max payable rent amount</p></label>
+      <input type='text' value="max_rent" placeholder='Enter amount' className='border rounded p-1 mb-4'></input>
+      <div className='flex flex-col'>
+      <label className='block'>Utility Bill Included</label>
 
+<label className="mr-4">
+  <input
+    type="radio"
+    name="utilityBills"
+    value="Included"
+    className="mr-1"
+  />
+  Yes
+</label>
+
+<label>
+  <input
+    type="radio"
+    name="utilityBills"
+    value="Not Included"
+    className="mr-1"
+  />
+   No
+</label>
+</div>
+
+      <label className=''>Facilities</label>
+      <div className='grid grid-col col-3'></div>
+      <div>Cooking</div>
+      <div>Parking</div>
+      <div>Other</div>
       </div>
       <div>
         <button className='mt-20 bg-red-500 text-white px-4 py-2 rounded'>
