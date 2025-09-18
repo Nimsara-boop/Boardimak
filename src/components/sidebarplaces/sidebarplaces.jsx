@@ -133,10 +133,15 @@ const Sidebar = ({ setPlaces }) => {
         <div className='grid grid-cols-3 gap-2'>
         <div>
           <label>Cooking</label>
-           <input type="checkbox" value={} checked={areas.includes(area)}
+            {facilities[cook].map((cook) => (
+              <label key={cook} className="block text-left py-1">
+                <input type="checkbox" value={cook} checked={cooking.includes(cook)}
                   onChange={handleAreaChange}
                   className="appearance-none h-5 w-5 border border-gray-500 rounded-sm checked:bg-transparent checked:border-gray-500 checked:before:content-['✔'] checked:before:block checked:before:text-gray-800 checked:before:text-sm checked:before:leading-4 checked:before:text-center"
                 />
+                {cook}
+              </label>
+            ))}
           </div>
         <div>Parking</div>
         <div>Other</div></div>
