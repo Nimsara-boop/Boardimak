@@ -74,7 +74,7 @@ const Sidebar = ({ setPlaces }) => {
           <div className="mt-2 mb-2 ">
             <p className="">Select Area/s</p>
             {cityAreas[city].map((area) => (
-              <label key={area} className="block text-left py-3">
+              <label key={area} className="block text-left py-1">
                 <input type="checkbox" value={area} checked={areas.includes(area)}
                   onChange={handleAreaChange}
                   className="appearance-none h-5 w-5 border border-gray-500 rounded-sm checked:bg-transparent checked:border-gray-500 checked:before:content-['✔'] checked:before:block checked:before:text-gray-800 checked:before:text-sm checked:before:leading-4 checked:before:text-center"
