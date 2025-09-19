@@ -72,7 +72,7 @@ const Sidebar = ({ setPlaces }) => {
 
         {city && (
           <div className="mt-2 mb-2 ">
-            <p className="">Select Area</p>
+            <p className="">Select Area/s</p>
             {cityAreas[city].map((area) => (
               <label key={area} className="block text-left py-1">
                 <input type="checkbox" value={area} checked={areas.includes(area)}
