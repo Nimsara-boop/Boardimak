@@ -61,13 +61,17 @@ const Sidebar = ({ setPlaces }) => {
 
       <div className="p-5 text-gray-600 gap-5 text-sm">
         <label className='text-left block p-2'>Location</label>
+
         <select value={city} onChange={(e) => { setCity(e.target.value); setAreas([]); }}
           className="py-1 mb-4 border rounded w-full"
         >
 
           <option value="">All Sri Lanka</option>
-          <option value="Colombo">Colombo</option>
-          <option value="Kandy">Kandy</option>
+          {Object.keys(cityAreas).map((cityName) =>{
+            <option value={cityName} key={cityName}>
+              {cityName}
+            </option>
+          })}
         </select>
 
         {city && (
