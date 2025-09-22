@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 
 const Sidebar = ({ setPlaces }) => {
   const [city, setCity] = useState('');
-  const [areas, setAreas] = useState('');
+  const [areas, setAreas] = useState([]);
   const [boardingtype, setBoardingType] = useState('');
   const [gender, setGender] = useState('');
   const [maxRent, setMaxRent] = useState('');
+  const [personsPerRoom, setPersonsPerRoom] = useState('');
   const [employment, setEmployment] = useState('');
+  const [selectedFacilityItem, setSelectedFacilityItem] = useState([]);
 
   const cityAreas = {
     Colombo: ["Bambalapitiya", "Dehiwala", "Piliyandala"],
@@ -14,9 +16,8 @@ const Sidebar = ({ setPlaces }) => {
   };
 
   const facilities = {
-    cooking: ["Gas Stove", "Electric Cooker", "Meals Provided", "Any"],
-    parking: ["Car Parking", "Bike Parking", "Any"],
-    other: ["A/C", "Hot Water", "Attached Bathroom"]
+    Cooking: ["Gas", "Electric", "Meals Provided", "Any"],
+    Parking: ["Car", "Bike ", "Any"],
   };
 
 
@@ -29,26 +30,31 @@ const Sidebar = ({ setPlaces }) => {
     }
   };
 
-  const handleBoardingTypeChange = (e) => {
+  const handleFacilityItemChange = (e) =>{
     const value = e.target.value;
-    if (boardingtype.includes(value)) {
-      setBoardingType(type.filter((a) => a !== value));
-    } else {
-      setBoardingType([...type, value]);
+    if (selectedFacilityItem.includes(value)){
+      setSelectedFacilityItem(selectedFacilityItem.filter(f => f != value));
+    }
+    else{
+      setSelectedFacilityItem([...selectedFacilityItem, value]);
     }
   };
 
   const handleFilter = async () => {
     const params = new URLSearchParams();
     if (city) params.append('city', city);
-    if (boardingtype.length > 0) {
-      boardingtype.forEach(t => params.append('type', t));
-    }
-    if (gender) params.append('tenant_gender', gender);
-    if (rentMax) params.append('rent_max', rentMax);
     if (areas.length > 0) {
       areas.forEach(a => params.append('area', a));
     }
+    if (boardingtype) params.append('boarding_type', boardingtype);
+    if (gender) params.append('tenant_gender', gender);
+    if (employment) params.append('employment_status', employment);
+    if (personsPerRoom) params.append('persons_per_room', personsPerRoom);
+    if (maxRent) params.append('max_rent', maxRent);
+    if (selectedFacilityItem.length > 0){
+      selectedFacilityItem.forEach(f=> params.append('facility', f));
+    }
+
 
     const res = await fetch(`http://localhost:5000/places?${params.toString()}`);
     const data = await res.json();
@@ -66,12 +72,13 @@ const Sidebar = ({ setPlaces }) => {
           className="py-1 mb-4 border rounded w-full"
         >
 
-          <option value="">All Sri Lanka</option>
-          {Object.keys(cityAreas).map((cityName) => {
+          <option value="">All of Sri Lanka</option>
+
+          {Object.keys(cityAreas).map((cityName) => (
             <option value={cityName} key={cityName}>
               {cityName}
             </option>
-          })}
+          ))}
         </select>
 
         {city && (
@@ -89,7 +96,7 @@ const Sidebar = ({ setPlaces }) => {
           </div>
         )}
         <label className='text-left block py-2'>Boarding Type</label>
-        <select value={boardingtype} onChange={(e) => { setBoardingType(e.target.value); setBoardingType([]); }}
+        <select value={boardingtype} onChange={(e) => setBoardingType(e.target.value)}
           className='border p-1 rounded w-full mb-4'>
           <option value="">All</option>
           <option value="Room">Room</option>
@@ -103,7 +110,7 @@ const Sidebar = ({ setPlaces }) => {
         <div className="flex flex-row gap-2 justify between">
           <div className="">
             <label>Gender</label>
-            <select value={gender} onChange={(e) => { setGender(e.target.value); setGender(''); }}
+            <select value={gender} onChange={(e) => { setGender(e.target.value); }}
               className='border p-1 rounded w-full mb-4'>
               <option value="Female">Female</option>
               <option value="Male">Male</option>
@@ -112,7 +119,7 @@ const Sidebar = ({ setPlaces }) => {
           </div>
           <div className="">
             <label>Employment</label>
-            <select value={employment} onChange={(e) => { setEmployment(e.target.value); setEmployment(''); }}
+            <select value={employment} onChange={(e) => { setEmployment(e.target.value); }}
               className='border p-1 rounded w-full mb-4'>
               <option value="Student">Student</option>
               <option value="Part-time">Part-time</option>
@@ -121,36 +128,45 @@ const Sidebar = ({ setPlaces }) => {
           </div>
         </div>
         <label>Persons Per Room</label>
-        <select value={employment} onChange={(e) => { setEmployment(e.target.value); setEmployment(''); }}
+        <select value={personsPerRoom} onChange={(e) => { setPersonsPerRoom(e.target.value); }}
           className='border p-1 rounded w-full mb-4'>
-          <option value="Single Room">Single Room</option>
-          <option value="2 shared">2 shared</option>
-          <option value="3 shared">3 shared</option>
-          <option value="4 shared">4 shared</option>
-          <option value="4+ shared">4+ shared</option>
           <option value="Any">Any</option>
+          <option value="Single Room">Single Room</option>
+          <option value="2 shared">Single or 2 shared</option>
+          <option value="3 shared">Single, 2 or 3 shared</option>
+          <option value="4 shared">Single, 2, 3 or 4 shared</option>
+          <option value="4+ shared">4+ shared</option>
+
         </select>
         <label>Max Rent <p className='text-xs'>*Max payable rent amount</p></label>
-        <input type='text' value="max_rent" placeholder='Enter amount' className='border rounded p-1 mb-4'></input>
+        <input type='number' value={maxRent} placeholder='Enter amount'
+          onChange={(e) => setMaxRent(e.target.value)}
+          className='border rounded p-1 mb-4'></input>
 
         <label className='p-3 '>Facilities</label>
-        <div className='grid grid-cols-3 gap-2'>
-          {Object.keys(facilities).map((facility) => {
-            <div key={facility}>
-      <label >{facility}</label>
-        {facilities[facility].map((item) =>{
-          <label key={item}>
-        <input type="checkbox" value={item} />
-        {item}
-        </label>
-        })}
-      </div>
-          })}
-          
+        <div className='grid grid-cols-3 py-2 md:flex md:flex-col lg:flex lg:flex-row block '>
+          {Object.keys(facilities).map((facility) => (
+            <div key={facility} className='border-l border-r border-gray-300 '>
+              <label className='font-semibold block w-full'>{facility}</label>
+              {facilities[facility].map((item) => (
+                <div className='text-left font-sm py-1 px-2' >
+                  <label key={item}>
+                    <input type="checkbox" value={item}
+                    checked={selectedFacilityItem.includes(item)}
+                    onChange={handleFacilityItemChange}
+                    className="appearance-none h-3 w-3 border border-gray-500 rounded-sm checked:bg-transparent checked:border-gray-500 checked:before:content-['✔'] checked:before:block checked:before:text-gray-800 checked:before:text-sm checked:before:leading-4 checked:before:text-center" />
+                    {item}
+                  </label></div>
+              ))}
+            </div>
+          ))}
+
         </div>
       </div>
       <div>
-        <button className='mt-20 bg-red-500 text-white px-4 py-2 rounded'>
+        <button 
+        onClick={handleFilter}
+        className='mt-20 bg-red-500 text-white px-4 py-2 rounded'>
           Set Filters
         </button>
       </div>
