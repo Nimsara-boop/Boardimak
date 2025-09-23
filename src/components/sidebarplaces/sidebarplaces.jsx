@@ -8,10 +8,11 @@ const Sidebar = ({ setPlaces }) => {
   const [maxRent, setMaxRent] = useState('');
   const [personsPerRoom, setPersonsPerRoom] = useState('');
   const [employment, setEmployment] = useState('');
-  const [selectedFacilityItem, setSelectedFacilityItem] = useState([]);
+  const [cooking, setCooking] = useState('');
+  const [parking, setParking] = useState('');
 
   const cityAreas = {
-    Colombo: ["Bambalapitiya", "Dehiwala", "Piliyandala"],
+    Colombo: ["Bambalapitiya", "Dehiwala", "Piliyandala", "Punchi Borella"],
     Kandy: ["Peradeniya", "Katugastota", "Gampola", "Minipe", "Pujapitiya", "Ganga Ihala Korale", "Akurana"],
   };
 
@@ -30,15 +31,6 @@ const Sidebar = ({ setPlaces }) => {
     }
   };
 
-  const handleFacilityItemChange = (e) =>{
-    const value = e.target.value;
-    if (selectedFacilityItem.includes(value)){
-      setSelectedFacilityItem(selectedFacilityItem.filter(f => f != value));
-    }
-    else{
-      setSelectedFacilityItem([...selectedFacilityItem, value]);
-    }
-  };
 
   const handleFilter = async () => {
     const params = new URLSearchParams();
@@ -49,11 +41,10 @@ const Sidebar = ({ setPlaces }) => {
     if (boardingtype) params.append('boarding_type', boardingtype);
     if (gender) params.append('tenant_gender', gender);
     if (employment) params.append('employment_status', employment);
-    if (personsPerRoom) params.append('persons_per_room', personsPerRoom);
-    if (maxRent) params.append('max_rent', maxRent);
-    if (selectedFacilityItem.length > 0){
-      selectedFacilityItem.forEach(f=> params.append('facility', f));
-    }
+    if (personsPerRoom) params.append('occupancy_per_room', personsPerRoom);
+    if (maxRent) params.append('rent_min', maxRent);
+    if (cooking) params.append('cooking_allowed', cooking);
+    if (parking) params.append('parking_allowed', parking);
 
 
     const res = await fetch(`http://localhost:5000/places?${params.toString()}`);
@@ -143,25 +134,27 @@ const Sidebar = ({ setPlaces }) => {
           onChange={(e) => setMaxRent(e.target.value)}
           className='border rounded p-1 mb-4'></input>
 
-        <label className='p-3 '>Facilities</label>
-        <div className='grid grid-cols-3 py-2 md:flex md:flex-col lg:flex lg:flex-row block '>
-          {Object.keys(facilities).map((facility) => (
-            <div key={facility} className='border-l border-r border-gray-300 '>
-              <label className='font-semibold block w-full'>{facility}</label>
-              {facilities[facility].map((item) => (
-                <div className='text-left font-sm py-1 px-2' >
-                  <label key={item}>
-                    <input type="checkbox" value={item}
-                    checked={selectedFacilityItem.includes(item)}
-                    onChange={handleFacilityItemChange}
-                    className="appearance-none h-3 w-3 border border-gray-500 rounded-sm checked:bg-transparent checked:border-gray-500 checked:before:content-['✔'] checked:before:block checked:before:text-gray-800 checked:before:text-sm checked:before:leading-4 checked:before:text-center" />
-                    {item}
-                  </label></div>
-              ))}
-            </div>
-          ))}
+        <label className=' '>Facilities</label><br/>
+<label className=''>Cooking Allowed</label>
+<select value={cooking} onChange={(e) => setCooking(e.target.value)}
+  className="border p-1 rounded w-full mb-4">
+  <option value="">All</option>
+  <option value="Gas">Gas</option>
+  <option value="Electric">Electric</option>
+  <option value="Meals Provided">Meals Provided</option>
+  <option value="Any">Any</option>
+  <option value="None">None</option>
+</select>
 
-        </div>
+<label>Parking Allowed</label>
+<select value={parking} onChange={(e) => setParking(e.target.value)}
+  className="border p-1 rounded w-full mb-4">
+  <option value="">All</option>
+  <option value="Car">Car</option>
+  <option value="Bike">Bike</option>
+  <option value="Any">Any</option>
+  <option value="None">None</option>
+</select>
       </div>
       <div>
         <button 
