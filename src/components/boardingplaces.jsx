@@ -2,28 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Postboardingbutton from './postboardingbutton'
 
-const BoardingPlaces = () => {
+const BoardingPlaces = ({listings, loading}) => {
 
   const [showPopup, setShowPopup] = useState(false);
-  const [listings, setListings] = useState([]);
-  const [loading, setLoading] = useState(true);
+  if (loading) return <p>Loading...</p>;
 
-  useEffect(() => {
-    fetch("http://localhost:5000/places")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Data from backend:", data);
-        setListings(Array.isArray(data) ? data : []);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching listings:", err);
-        setListings([]);
-        setLoading(false);
-      });
-  }, []);
 
-  if (loading) return <p>Loading... </p>;
 
   return (
     <div className="p-4">
