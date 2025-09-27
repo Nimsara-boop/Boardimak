@@ -12,10 +12,15 @@ const BoardingPlaces = () => {
     fetch("http://localhost:5000/places")
       .then((res) => res.json())
       .then((data) => {
-        setListings(data);
+        console.log("Data from backend:", data);
+        setListings(Array.isArray(data) ? data : []);
         setLoading(false);
       })
-      .catch((err) => console.error("Error fetching listings:", err));
+      .catch((err) => {
+        console.error("Error fetching listings:", err);
+        setListings([]);
+        setLoading(false);
+      });
   }, []);
 
   if (loading) return <p>Loading... </p>;
@@ -26,8 +31,8 @@ const BoardingPlaces = () => {
       <div className='flex flex-row justify-between '>
         <div className='items-left py-10'>
           <Link to='/boardingplacesongooglemaps'>
-          <button className="text-lg font-bold text-white bg-green-600">Google Maps</button>
-          <p className='text-gray-400'>View all boarding listings on Google Maps</p> </Link>
+            <button className="text-lg font-bold text-white bg-green-600">Google Maps</button>
+            <p className='text-gray-400'>View all boarding listings on Google Maps</p> </Link>
         </div>
         <div className='items-right py-6'>
           <button className="text-lg font-bold text-white bg-yellow-500" onClick={() => setShowPopup(true)}>

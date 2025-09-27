@@ -14,7 +14,7 @@ const Sidebar = ({ setPlaces }) => {
   const cityAreas = {
     Colombo: ["Bambalapitiya", "Dehiwala", "Piliyandala", "Punchi Borella"],
     Kandy: ["Peradeniya", "Katugastota", "Gampola", "Minipe", "Pujapitiya", "Ganga Ihala Korale", "Akurana"],
-  };
+  };  
 
   const facilities = {
     Cooking: ["Gas", "Electric", "Meals Provided", "Any"],
@@ -38,7 +38,7 @@ const Sidebar = ({ setPlaces }) => {
     if (areas.length > 0) {
       areas.forEach(a => params.append('area', a));
     }
-    if (boardingtype) params.append('boarding_type', boardingtype);
+    if (boardingtype) params.append('boardingtype', boardingtype);
     if (gender) params.append('tenant_gender', gender);
     if (employment) params.append('employment_status', employment);
     if (personsPerRoom) params.append('occupancy_per_room', personsPerRoom);
@@ -53,13 +53,13 @@ const Sidebar = ({ setPlaces }) => {
   };
 
   return (
-    <div className="mt-10 h-screen bg-gray-100 text-black p-4 border-b border-black md:border-b-0 md:border-r md:border-gray-300">
+    <div className="mt-10 h-screen bg-gray-100 text-black p-2 border-b border-black md:border-b-0 md:border-r md:border-gray-300">
       <h2 className="text-xl font-bold text-gray-500 lg:align-left">Filters</h2>
 
       <div className="p-5 text-gray-600 gap-5 text-sm">
         <label className='text-left block p-2'>Location</label>
 
-        <select value={city} onChange={(e) => { setCity(e.target.value); setAreas([]); }}
+        <select value={city} onChange={(e) => {setCity(e.target.value); setAreas([]); }}
           className="py-1 mb-4 border rounded w-full"
         >
 
@@ -75,7 +75,14 @@ const Sidebar = ({ setPlaces }) => {
         {city && (
           <div className="mt-2 mb-2 ">
             <p className="">Select Area/s</p>
+            <label key={""} className="block text-left py-1">
+             <input type="checkbox" value={""} checked={areas.includes("")}
+                  onChange={handleAreaChange}
+                  className="appearance-none h-5 w-5 border border-gray-500 rounded-sm checked:bg-transparent checked:border-gray-500 checked:before:content-['✔'] checked:before:block checked:before:text-gray-800 checked:before:text-sm checked:before:leading-4 checked:before:text-center"
+                />All of {city}
+            </label>
             {cityAreas[city].map((area) => (
+              
               <label key={area} className="block text-left py-1">
                 <input type="checkbox" value={area} checked={areas.includes(area)}
                   onChange={handleAreaChange}
@@ -89,13 +96,13 @@ const Sidebar = ({ setPlaces }) => {
         <label className='text-left block py-2'>Boarding Type</label>
         <select value={boardingtype} onChange={(e) => setBoardingType(e.target.value)}
           className='border p-1 rounded w-full mb-4'>
-          <option value="">All</option>
-          <option value="Room">Room</option>
-          <option value="House">House</option>
-          <option value="Annex">Annex</option>
-          <option value="Portion">Portion</option>
-          <option value="HomeStays">Home stays</option>
-          <option value='Apartment'>Apartment</option>
+          <option value="">Any</option>
+          <option value="room">Room</option>
+          <option value="house">House</option>
+          <option value="annex">Annex</option>
+          <option value="portion">Portion</option>
+          <option value="homestays">Home stays</option>
+          <option value='apartment'>Apartment</option>
         </select>
 
         <div className="flex flex-row gap-2 justify between">
@@ -103,30 +110,30 @@ const Sidebar = ({ setPlaces }) => {
             <label>Gender</label>
             <select value={gender} onChange={(e) => { setGender(e.target.value); }}
               className='border p-1 rounded w-full mb-4'>
-              <option value="Female">Female</option>
-              <option value="Male">Male</option>
-              <option value="Couple">Couple</option>
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+              <option value="couple">Couple</option>
             </select>
           </div>
           <div className="">
             <label>Employment</label>
             <select value={employment} onChange={(e) => { setEmployment(e.target.value); }}
               className='border p-1 rounded w-full mb-4'>
-              <option value="Student">Student</option>
-              <option value="Part-time">Part-time</option>
-              <option value="Employed">Employed</option>
+              <option value="student">Student</option>
+              <option value="part time">Part-time</option>
+              <option value="working">Employed</option>
             </select>
           </div>
         </div>
         <label>Persons Per Room</label>
-        <select value={personsPerRoom} onChange={(e) => { setPersonsPerRoom(e.target.value); }}
+        <select value={personsPerRoom} onChange={(e) => {setPersonsPerRoom(e.target.value); }}
           className='border p-1 rounded w-full mb-4'>
-          <option value="Any">Any</option>
-          <option value="Single Room">Single Room</option>
-          <option value="2 shared">Single or 2 shared</option>
-          <option value="3 shared">Single, 2 or 3 shared</option>
-          <option value="4 shared">Single, 2, 3 or 4 shared</option>
-          <option value="4+ shared">4+ shared</option>
+          <option value="">Any</option>
+          <option value="1">Single Room</option>
+          <option value="1,2">Single or 2 shared</option>
+          <option value="1,2,3">Single, 2 or 3 shared</option>
+          <option value="1,2,3,4">Single, 2, 3 or 4 shared</option>
+          <option value="5,6,7,8,9,10">4+ shared</option>
 
         </select>
         <label>Max Rent <p className='text-xs'>*Max payable rent amount</p></label>
@@ -138,22 +145,20 @@ const Sidebar = ({ setPlaces }) => {
 <label className=''>Cooking Allowed</label>
 <select value={cooking} onChange={(e) => setCooking(e.target.value)}
   className="border p-1 rounded w-full mb-4">
-  <option value="">All</option>
-  <option value="Gas">Gas</option>
-  <option value="Electric">Electric</option>
-  <option value="Meals Provided">Meals Provided</option>
-  <option value="Any">Any</option>
-  <option value="None">None</option>
+  <option value="gas stove">Gas</option>
+  <option value="electric">Electric</option>
+  <option value="provided">Meals Provided</option>
+  <option value="">Any</option>
+  <option value="none">None</option>
 </select>
 
 <label>Parking Allowed</label>
 <select value={parking} onChange={(e) => setParking(e.target.value)}
   className="border p-1 rounded w-full mb-4">
-  <option value="">All</option>
-  <option value="Car">Car</option>
-  <option value="Bike">Bike</option>
-  <option value="Any">Any</option>
-  <option value="None">None</option>
+  <option value="">Any</option>
+  <option value="car">Car</option>
+  <option value="bike">Bike</option>
+  <option value="none">None</option>
 </select>
       </div>
       <div>
