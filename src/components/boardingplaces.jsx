@@ -47,7 +47,7 @@ const BoardingPlaces = ({listings, loading}) => {
               <p>{listing.description}</p>
               <p className="text-md font-bold text-gray-800">Rs {listing.rent_per_person} | <span className='text-sm font-semibold text-gray-700'> {listing.area} </span></p>
               <p>{listing.boarding_type} | {listing.occupancy_per_room}</p>
-              <p>{listing.tenant_gender} | {listing.tenant_employment}</p>
+              <p>{listing.tenant_gender} | {listing.tenant_employment} | {listing.cooking_allowed}</p>
             </div>
           </li>
         ))}</ul>
