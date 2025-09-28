@@ -4,17 +4,17 @@ const Sidebar = ({ setPlaces }) => {
   const [city, setCity] = useState('');
   const [areas, setAreas] = useState([]);
   const [boardingtype, setBoardingType] = useState('');
-  const [gender, setGender] = useState('');
+  const [tenant_gender, setGender] = useState('');
   const [maxRent, setMaxRent] = useState('');
   const [personsPerRoom, setPersonsPerRoom] = useState('');
-  const [employment, setEmployment] = useState('');
+  const [tenant_employment, setEmployment] = useState('');
   const [cooking, setCooking] = useState('');
   const [parking, setParking] = useState('');
 
   const cityAreas = {
     Colombo: ["Bambalapitiya", "Dehiwala", "Piliyandala", "Punchi Borella"],
     Kandy: ["Peradeniya", "Katugastota", "Gampola", "Minipe", "Pujapitiya", "Ganga Ihala Korale", "Akurana"],
-  };  
+  };
 
   const facilities = {
     Cooking: ["Gas", "Electric", "Meals Provided", "Any"],
@@ -39,14 +39,14 @@ const Sidebar = ({ setPlaces }) => {
       areas.forEach(a => params.append('area', a));
     }
     if (boardingtype) params.append('boardingtype', boardingtype);
-    if (gender) params.append('tenant_gender', gender);
-    if (employment) params.append('employment_status', employment);
+    if (tenant_gender) params.append('tenant_gender', tenant_gender);
+    if (tenant_employment) params.append('tenant_employment', tenant_employment);
     if (personsPerRoom) params.append('occupancy_per_room', personsPerRoom);
     if (maxRent) params.append('rent_min', maxRent);
     if (cooking) params.append('cooking_allowed', cooking);
     if (parking) params.append('parking_allowed', parking);
 
-
+    console.log("Fetching URL:", `http://localhost:5000/places?${params.toString()}`);
     const res = await fetch(`http://localhost:5000/places?${params.toString()}`);
     const data = await res.json();
     setPlaces(data);
@@ -59,7 +59,7 @@ const Sidebar = ({ setPlaces }) => {
       <div className="p-5 text-gray-600 gap-5 text-sm">
         <label className='text-left block p-2'>Location</label>
 
-        <select value={city} onChange={(e) => {setCity(e.target.value); setAreas([]); }}
+        <select value={city} onChange={(e) => { setCity(e.target.value); setAreas([]); }}
           className="py-1 mb-4 border rounded w-full"
         >
 
@@ -76,13 +76,13 @@ const Sidebar = ({ setPlaces }) => {
           <div className="mt-2 mb-2 ">
             <p className="">Select Area/s</p>
             <label key={""} className="block text-left py-1">
-             <input type="checkbox" value={""} checked={areas.includes("")}
-                  onChange={handleAreaChange}
-                  className="appearance-none h-5 w-5 border border-gray-500 rounded-sm checked:bg-transparent checked:border-gray-500 checked:before:content-['✔'] checked:before:block checked:before:text-gray-800 checked:before:text-sm checked:before:leading-4 checked:before:text-center"
-                />All of {city}
+              <input type="checkbox" value={""} checked={areas.includes("")}
+                onChange={handleAreaChange}
+                className="appearance-none h-5 w-5 border border-gray-500 rounded-sm checked:bg-transparent checked:border-gray-500 checked:before:content-['✔'] checked:before:block checked:before:text-gray-800 checked:before:text-sm checked:before:leading-4 checked:before:text-center"
+              />All of {city}
             </label>
             {cityAreas[city].map((area) => (
-              
+
               <label key={area} className="block text-left py-1">
                 <input type="checkbox" value={area} checked={areas.includes(area)}
                   onChange={handleAreaChange}
@@ -108,8 +108,9 @@ const Sidebar = ({ setPlaces }) => {
         <div className="flex flex-row gap-2 justify between">
           <div className="">
             <label>Gender</label>
-            <select value={gender} onChange={(e) => { setGender(e.target.value); }}
+            <select value={tenant_gender} onChange={(e) => { setGender(e.target.value); }}
               className='border p-1 rounded w-full mb-4'>
+              <option value="">Any</option>
               <option value="female">Female</option>
               <option value="male">Male</option>
               <option value="couple">Couple</option>
@@ -117,8 +118,9 @@ const Sidebar = ({ setPlaces }) => {
           </div>
           <div className="">
             <label>Employment</label>
-            <select value={employment} onChange={(e) => { setEmployment(e.target.value); }}
+            <select value={tenant_employment} onChange={(e) => { setEmployment(e.target.value); }}
               className='border p-1 rounded w-full mb-4'>
+              <option value="">Any</option>
               <option value="student">Student</option>
               <option value="part time">Part-time</option>
               <option value="working">Employed</option>
@@ -126,7 +128,7 @@ const Sidebar = ({ setPlaces }) => {
           </div>
         </div>
         <label>Persons Per Room</label>
-        <select value={personsPerRoom} onChange={(e) => {setPersonsPerRoom(e.target.value); }}
+        <select value={personsPerRoom} onChange={(e) => { setPersonsPerRoom(e.target.value); }}
           className='border p-1 rounded w-full mb-4'>
           <option value="">Any</option>
           <option value="1">Single Room</option>
@@ -141,30 +143,30 @@ const Sidebar = ({ setPlaces }) => {
           onChange={(e) => setMaxRent(e.target.value)}
           className='border rounded p-1 mb-4'></input>
 
-        <label className=' '>Facilities</label><br/>
-<label className=''>Cooking Allowed</label>
-<select value={cooking} onChange={(e) => setCooking(e.target.value)}
-  className="border p-1 rounded w-full mb-4">
-  <option value="gas stove">Gas</option>
-  <option value="electric">Electric</option>
-  <option value="provided">Meals Provided</option>
-  <option value="">Any</option>
-  <option value="none">None</option>
-</select>
+        <label className=' '>Facilities</label><br />
+        <label className=''>Cooking Allowed</label>
+        <select value={cooking} onChange={(e) => setCooking(e.target.value)}
+          className="border p-1 rounded w-full mb-4">
+          <option value="gas stove">Gas</option>
+          <option value="electric">Electric</option>
+          <option value="provided">Meals Provided</option>
+          <option value="">Any</option>
+          <option value="none">None</option>
+        </select>
 
-<label>Parking Allowed</label>
-<select value={parking} onChange={(e) => setParking(e.target.value)}
-  className="border p-1 rounded w-full mb-4">
-  <option value="">Any</option>
-  <option value="car">Car</option>
-  <option value="bike">Bike</option>
-  <option value="none">None</option>
-</select>
+        <label>Parking Allowed</label>
+        <select value={parking} onChange={(e) => setParking(e.target.value)}
+          className="border p-1 rounded w-full mb-4">
+          <option value="">Any</option>
+          <option value="car">Car</option>
+          <option value="bike">Bike</option>
+          <option value="none">None</option>
+        </select>
       </div>
       <div>
-        <button 
-        onClick={handleFilter}
-        className='mt-20 bg-red-500 text-white px-4 py-2 rounded'>
+        <button
+          onClick={handleFilter}
+          className='mt-20 bg-red-500 text-white px-4 py-2 rounded'>
           Set Filters
         </button>
       </div>

@@ -45,7 +45,9 @@ const BoardingPlaces = ({listings, loading}) => {
             <div className='px-4 align-left '>
               <h3 className="font-semibold text-gray-700">{listing.title}</h3>
               <p>{listing.description}</p>
-              <p className="text-md font-bold text-gray-800">Rs {listing.rent_per_person} | <span className='text-sm font-semibold text-gray-700'>~ {listing.area}</span></p>
+              <p className="text-md font-bold text-gray-800">Rs {listing.rent_per_person} | <span className='text-sm font-semibold text-gray-700'> {listing.area} </span></p>
+              <p>{listing.boarding_type} | {listing.occupancy_per_room}</p>
+              <p>{listing.tenant_gender} | {listing.tenant_employment}</p>
             </div>
           </li>
         ))}</ul>
