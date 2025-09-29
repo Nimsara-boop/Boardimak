@@ -24,14 +24,10 @@ const BoardingHunters = () => {
     <div className="p-4">
 
       <div className='flex flex-row justify-between '>
-        <div className='items-left py-10'>
-          <button className="text-lg font-bold text-white bg-green-600">Google Maps</button>
-          <p className='text-gray-400'>View all boarding listings on Google Maps</p>
-        </div>
+
         <div className='items-right py-6'>
-          <button className="text-lg font-bold text-white bg-yellow-500" onClick={() => setShowPopup(true)}>
-            <p>Post Boarding</p> <p className='bg-red-600 rounded-full  text-sm'>Free</p></button>
-          <p className='text-gray-400'>Post Your Boarding For Free!</p>
+          <button className="text-lg font-bold text-white bg-green-600" onClick={() => setShowPopup(true)}>
+            <p>Make Post</p></button>
         </div>
       </div>
       {showPopup && (
