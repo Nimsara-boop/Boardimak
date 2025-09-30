@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import Postboardingbutton from './postboardingbutton'
+import PostHunterButton from './posthunter';
 
 const BoardingHunters = () => {
 
@@ -39,7 +39,7 @@ const BoardingHunters = () => {
             >
               ✖
             </button>
-            <Postboardingbutton />
+            <PostHunterButton />
           </div>
         </div>
       )}
