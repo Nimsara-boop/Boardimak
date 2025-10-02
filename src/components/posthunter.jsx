@@ -23,9 +23,18 @@ const PostHunterButton = () => {
                 ))}</select>
 
             {city && (
-            <label value="area" className='text-gray-700 text-sm  inline-block text-left px-5 ml-20'>*Area <span className="text-xs"> (select all that apply)</span></label>
-            <select value='area' onChange={(e) => { setArea([e.target.value]); }})></select>)
-            }
+                <div>
+            <label key='' className='text-gray-700 text-sm  inline-block text-left px-5 ml-20'>*Area <span className="text-xs"> (select all that apply)</span></label>
+            <input type="checkbox" value={""} checked={areas.includes("")}
+                onChange={handleAreaChange}
+                className="appearance-none h-5 w-5 border border-gray-500 rounded-sm checked:bg-transparent checked:border-gray-500 checked:before:content-['✔'] checked:before:block checked:before:text-gray-800 checked:before:text-sm checked:before:leading-4 checked:before:text-center"
+              />All of {city}
+              {cityAreas[city].map((area) =>(
+                <label key={area}>
+                <input type='checkbox' value={area}/></label>
+              ))}
+            </div>
+           )}
         </div>
     )
 }
