@@ -35,13 +35,13 @@ const PostHunterButton = () => {
         <div className="text-gray-900 overflow-hidden" >
             <h3 className="text-gray-600  text-center mb-5">Post a Looking For A Boarding notice</h3>
             <div>
-                <label value='color'>Pick Post Color</label>
+                <label value='color' className='text-gray-700 text-sm  inline-block text-left px-5'>Pick Post Color </label>
       {colors.map((color) => (
         <button
           key={color}
           onClick={handlePostColorChange}
           style={{ backgroundColor: color }}
-          className={`
+          className={` gap-2 m-1 mb-5
             h-8 w-6 rounded-full          
             border-4
             ${color}
